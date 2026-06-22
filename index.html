@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KiwiQuote — See if you could save on your life insurance</title>
+<meta name="description" content="A quick, friendly 5-minute call to see if you could be paying less for your life or medical insurance. No jargon, no pressure." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #493C31;          /* dark brown, headings + dark panels */
+    --ink-soft: #6b5d4f;     /* muted brown for secondary text */
+    --text: #1C1C1C;         /* near-black body copy */
+    --paper: #FFFCF2;        /* warm cream page background */
+    --cream: #F9F9F9;        /* off-white for tinted bands / surfaces */
+    --mint: #efe2cd;         /* soft tan (chip backgrounds) */
+    --mint-deep: #8a5a32;    /* warm brown (accent) */
+    --mint-dark: #5e3c1e;    /* deep brown */
+    --coral: #AC7B4E;        /* caramel / tan accent */
+    --coral-soft: #f0e3d2;
+    --sun: #e8cda2;          /* soft caramel highlight */
+    --sky: #ecd9b0;          /* warm tan blob */
+    --line: #ece4d2;
+    --shadow: 0 18px 50px -22px rgba(73, 60, 49, 0.30);
+    --radius: 22px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    color: var(--text);
+    background: var(--paper);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.08; font-weight: 600; color: var(--ink); }
+
+  a { color: inherit; }
+
+  .wrap { width: min(1080px, 92vw); margin: 0 auto; }
+
+  /* ---------- Floating blobs ---------- */
+  .blob { position: absolute; border-radius: 50%; filter: blur(8px); opacity: 0.55; z-index: 0; pointer-events: none; animation: float 9s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-22px) scale(1.05); } }
+  @media (prefers-reduced-motion: reduce) { .blob { animation: none; } html { scroll-behavior: auto; } }
+
+  /* ---------- Top bar ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 252, 242, 0.82);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.18rem; letter-spacing: -0.02em; text-decoration: none; color: inherit; }
+  a.brand { cursor: pointer; }
+  .brand .word { display: inline-flex; }
+  .brand .mark { height: 42px; display: inline-flex; align-items: center; }
+  .brand .mark img { height: 100%; width: auto; display: block; }
+  .brand .mark-footer { background: var(--paper); border-radius: 12px; padding: 6px 9px; height: 46px; }
+  .brand b { color: var(--mint-deep); }
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink); color: var(--paper);
+    padding: 11px 20px; border-radius: 999px; text-decoration: none;
+    font-weight: 600; font-size: 0.94rem; transition: transform .18s ease, background .18s ease;
+  }
+  .nav-cta:hover { transform: translateY(-2px); background: #6e4a2a; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding: 72px 0 84px; overflow: hidden; }
+  .hero .b1 { width: 280px; height: 280px; background: var(--coral-soft); top: -60px; right: -40px; }
+  .hero .b2 { width: 200px; height: 200px; background: var(--coral-soft); bottom: 10px; left: -70px; animation-delay: 1.5s; }
+  .hero .b3 { width: 140px; height: 140px; background: var(--sky); top: 120px; left: 44%; opacity: 0.4; animation-delay: .7s; }
+
+  .pill {
+    position: relative; z-index: 1;
+    display: inline-flex; align-items: center; gap: 9px;
+    background: #fff; border: 1px solid var(--line);
+    padding: 8px 16px 8px 12px; border-radius: 999px;
+    font-size: 0.86rem; font-weight: 600; color: var(--ink-soft);
+    box-shadow: var(--shadow);
+  }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--mint-deep); box-shadow: 0 0 0 4px rgba(138,90,50,0.2); }
+
+  .hero h1 {
+    position: relative; z-index: 1;
+    font-size: clamp(2.5rem, 6.4vw, 4.6rem);
+    letter-spacing: -0.025em; margin: 22px 0 0; max-width: 16ch;
+  }
+  .hero h1 .hl { color: var(--mint-dark); position: relative; white-space: nowrap; }
+  .hero h1 .hl::after {
+    content: ""; position: absolute; left: -2%; right: -2%; bottom: 6%; height: 38%;
+    background: var(--sun); opacity: 0.45; border-radius: 6px; z-index: -1; transform: rotate(-1.2deg);
+  }
+  .hero p.lede {
+    position: relative; z-index: 1;
+    font-size: clamp(1.08rem, 2.2vw, 1.32rem); color: var(--ink-soft);
+    margin: 24px 0 0; max-width: 50ch;
+  }
+  .hero-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; align-items: center; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+    border: none; font-family: inherit; font-weight: 700; font-size: 1.02rem;
+    padding: 16px 30px; border-radius: 999px; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #8a5a32, #5e3c1e); color: var(--paper);
+    box-shadow: 0 14px 30px -12px rgba(94, 60, 30, 0.6);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 38px -12px rgba(94, 60, 30, 0.72); }
+  .btn-ghost { background: #fff; border: 1px solid var(--line); color: var(--ink); font-weight: 600; padding: 15px 26px; }
+  .btn-ghost:hover { transform: translateY(-3px); }
+
+  .reassure { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 22px; margin-top: 30px; color: var(--ink-soft); font-size: 0.95rem; font-weight: 500; }
+  .reassure span { display: inline-flex; align-items: center; gap: 8px; }
+  .tick { color: var(--mint-deep); font-weight: 800; }
+
+  .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 36px; align-items: center; position: relative; z-index: 1; }
+  .hero-art { display: flex; justify-content: center; }
+  .hero-art img { width: 100%; max-width: 380px; height: auto; filter: drop-shadow(0 26px 28px rgba(73,60,49,0.20)); animation: bob 5s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @media (prefers-reduced-motion: reduce) { .hero-art img { animation: none; } }
+
+  /* ---------- How it works ---------- */
+  .section { padding: 78px 0; position: relative; }
+  .section.tint { background: var(--cream); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  .eyebrow { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--coral); }
+  .section h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); letter-spacing: -0.02em; margin: 10px 0 0; max-width: 18ch; }
+  .section .sub { color: var(--ink-soft); font-size: 1.1rem; margin-top: 16px; max-width: 56ch; }
+
+  .how-head { text-align: center; max-width: 760px; margin: 0 auto; }
+  .how-head h2 { margin-left: auto; margin-right: auto; }
+  .how-head .sub { margin-left: auto; margin-right: auto; }
+
+  /* numbered step indicators with connecting line */
+  .how-indicators { position: relative; max-width: 900px; margin: 48px auto 18px; }
+  .how-line { position: absolute; left: 16.6667%; top: 50%; width: 66.6667%; height: 2px; transform: translateY(-50%); background: var(--line); }
+  .how-nums { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .how-num {
+    justify-self: center; width: 34px; height: 34px; border-radius: 50%;
+    display: grid; place-items: center; font-weight: 700; font-size: 0.95rem;
+    background: var(--mint); color: var(--ink); box-shadow: 0 0 0 5px var(--paper);
+  }
+
+  /* cards */
+  .how-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; margin: 0 auto; }
+  .how-card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px 26px; box-shadow: var(--shadow); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .how-card:hover { transform: translateY(-6px); border-color: #d9b98e; box-shadow: 0 26px 50px -24px rgba(73,60,49,0.4); }
+  .how-icon {
+    width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+    background: var(--mint); color: var(--mint-dark); margin-bottom: 18px;
+  }
+  .how-icon svg { width: 24px; height: 24px; }
+  .how-card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+  .how-card > p { color: var(--ink-soft); font-size: 0.98rem; margin-bottom: 18px; }
+  .how-benefits { list-style: none; display: grid; gap: 11px; }
+  .how-benefits li { display: flex; align-items: center; gap: 11px; color: var(--ink-soft); font-size: 0.94rem; }
+  .how-benefits .bdot {
+    width: 16px; height: 16px; border-radius: 50%; flex: none; display: grid; place-items: center;
+    background: var(--coral-soft);
+  }
+  .how-benefits .bdot::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mint-deep); }
+
+  .note {
+    margin-top: 40px; background: #f4ead5; border-radius: var(--radius);
+    padding: 20px 26px; display: flex; gap: 16px; align-items: center;
+    font-size: 0.98rem; color: var(--ink); border: 1px solid #e6d6b4;
+  }
+  .note .ic { font-size: 1.4rem; line-height: 1.2; }
+  .note-kiwi { width: 64px; height: auto; flex: none; }
+
+  /* ---------- Form ---------- */
+  #quote { position: relative; }
+  #quote .b1 { width: 240px; height: 240px; background: var(--coral-soft); top: 40px; right: 0; opacity: 0.5; }
+  #quote .b2 { width: 180px; height: 180px; background: var(--mint); bottom: 40px; left: 0; opacity: 0.5; animation-delay: 1s; }
+
+  .form-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 40px; align-items: start; margin-top: 12px; position: relative; z-index: 1; }
+  .form-intro { position: sticky; top: 100px; }
+  .form-intro h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+  .form-intro p { color: var(--ink-soft); font-size: 1.08rem; margin-top: 16px; }
+  .mini-list { list-style: none; margin-top: 26px; display: grid; gap: 14px; }
+  .mini-list li { display: flex; gap: 12px; align-items: flex-start; font-weight: 500; }
+  .mini-list .tick { background: var(--mint); color: var(--mint-dark); width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; flex: none; font-size: 0.85rem; }
+  .intro-kiwi { width: 220px; max-width: 70%; height: auto; margin-top: 30px; filter: drop-shadow(0 20px 22px rgba(73,60,49,0.18)); }
+
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: 26px;
+    padding: 32px; box-shadow: var(--shadow);
+  }
+
+  .field { margin-bottom: 22px; }
+  .field > label { display: block; font-weight: 600; font-size: 0.98rem; margin-bottom: 10px; }
+  .field .hint { font-weight: 400; color: var(--ink-soft); font-size: 0.86rem; }
+  .req { color: var(--coral); }
+
+  input[type="text"], input[type="tel"], input[type="email"], textarea, select {
+    width: 100%; font-family: inherit; font-size: 1rem; color: var(--ink);
+    padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 14px;
+    background: var(--paper); transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none; border-color: var(--mint-deep); box-shadow: 0 0 0 4px rgba(138,90,50,0.18); background: #fff;
+  }
+  textarea { resize: vertical; min-height: 84px; }
+
+  .choices { display: flex; flex-wrap: wrap; gap: 10px; }
+  .choice { position: relative; }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice label {
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    padding: 11px 18px; border-radius: 999px; border: 1.5px solid var(--line);
+    background: var(--paper); font-weight: 600; font-size: 0.95rem; transition: all .15s ease;
+  }
+  .choice label:hover { border-color: var(--mint-deep); }
+  .choice input:checked + label { background: var(--mint); border-color: var(--mint-deep); color: var(--mint-dark); }
+
+  /* phone verify */
+  .verify-row { display: flex; gap: 10px; align-items: stretch; }
+  .verify-row input { flex: 1; }
+  .btn-verify {
+    white-space: nowrap; border: 1.5px solid var(--mint-deep); background: var(--mint);
+    color: var(--mint-dark); font-weight: 700; border-radius: 14px; padding: 0 18px; cursor: pointer;
+    font-family: inherit; font-size: 0.92rem; transition: all .15s ease;
+  }
+  .btn-verify:hover { background: var(--mint-deep); color: #fff; }
+  .btn-verify:disabled { opacity: 0.5; cursor: default; }
+  .verify-box { margin-top: 12px; padding: 16px; border-radius: 14px; background: var(--cream); border: 1px dashed var(--coral); display: none; }
+  .verify-box.show { display: block; }
+  .verify-box p { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 10px; }
+  .verify-box .code-row { display: flex; gap: 10px; }
+  .verify-box input { letter-spacing: 0.4em; font-weight: 700; text-align: center; }
+  .verified-tag { display: none; align-items: center; gap: 8px; color: var(--mint-dark); font-weight: 700; font-size: 0.92rem; margin-top: 10px; }
+  .verified-tag.show { display: inline-flex; }
+  .demo-tag { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8a5f37; background: var(--coral-soft); padding: 3px 9px; border-radius: 999px; }
+
+  .submit-row { margin-top: 8px; }
+  .submit-row .btn-primary { width: 100%; justify-content: center; font-size: 1.08rem; }
+  .fineprint { font-size: 0.82rem; color: var(--ink-soft); margin-top: 16px; text-align: center; }
+
+  /* ---------- Survey (multi-step form) ---------- */
+  .survey { display: flex; flex-direction: column; }
+  .survey-top { margin-bottom: 24px; }
+  .survey-count { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--coral); }
+  .survey-progress { margin-top: 10px; height: 8px; border-radius: 999px; background: var(--coral-soft); overflow: hidden; }
+  .survey-bar { display: block; height: 100%; width: 20%; border-radius: 999px; background: linear-gradient(90deg, #8a5a32, #5e3c1e); transition: width .4s cubic-bezier(0.16,1,0.3,1); }
+
+  .survey-step { display: none; animation: stepIn .35s cubic-bezier(0.16,1,0.3,1); }
+  .survey-step.is-active { display: block; }
+  @keyframes stepIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .survey-step { animation: none; } }
+
+  .survey-q { font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin-bottom: 6px; }
+  .survey-help { color: var(--ink-soft); font-size: 0.96rem; margin-bottom: 22px; }
+
+  .choices-stack { flex-direction: column; gap: 12px; }
+  .choices-stack .choice { display: block; }
+  .choices-stack .choice label {
+    width: 100%; justify-content: flex-start; padding: 16px 20px; font-size: 1rem;
+    border-width: 1.5px; border-radius: 14px;
+  }
+
+  .survey-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 28px; }
+  .survey-nav-right { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+  .btn-back {
+    background: none; border: none; cursor: pointer; font-family: inherit; font-weight: 600;
+    font-size: 0.95rem; color: var(--ink-soft); padding: 10px 6px; transition: color .15s ease;
+  }
+  .btn-back:hover { color: var(--ink); }
+  .btn-back[hidden] { visibility: hidden; display: inline-block; }
+  .skip-btn {
+    background: none; border: none; cursor: pointer; font-family: inherit; font-weight: 600;
+    font-size: 0.92rem; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; padding: 10px 4px;
+  }
+  .skip-btn:hover { color: var(--ink); }
+  .survey-nav .btn-primary { padding: 14px 28px; }
+  .survey-nav .btn[hidden], .skip-btn[hidden] { display: none !important; }
+  .survey .fineprint { margin-top: 14px; }
+
+  /* thank you */
+  .thanks {
+    display: none; text-align: center; padding: 20px 10px;
+  }
+  .thanks.show { display: block; animation: pop .4s ease; }
+  @keyframes pop { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .thanks-kiwi { width: 150px; height: auto; margin: 0 auto 14px; display: block; filter: drop-shadow(0 18px 22px rgba(73,60,49,0.2)); }
+  .thanks h3 { font-size: 1.9rem; margin-bottom: 12px; }
+  .thanks p { color: var(--ink-soft); font-size: 1.06rem; max-width: 40ch; margin: 0 auto; }
+
+  /* ---------- FAQ (faq-pro style accordion) ---------- */
+  .faq-head { text-align: center; }
+  .faq-head h2 { margin-left: auto; margin-right: auto; }
+  .faq { display: flex; flex-direction: column; gap: 10px; margin: 40px auto 0; max-width: 640px; }
+  .faq-row { border-radius: 18px; background: #f4ead5; border: 1px solid var(--line); overflow: hidden; transition: background .2s ease; }
+  .faq-row:hover { background: #f0e4cd; }
+  .faq-q {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 18px 22px; background: none; border: none; cursor: pointer; text-align: left;
+    font-family: inherit; font-weight: 600; font-size: 1.04rem; color: var(--ink); line-height: 1.4;
+  }
+  .faq-q:focus-visible { outline: 2px solid var(--mint-deep); outline-offset: -2px; border-radius: 18px; }
+  .faq-chev { width: 18px; height: 18px; flex: none; color: var(--ink-soft); transition: transform .3s cubic-bezier(0.16,1,0.3,1); }
+  .faq-row.open .faq-chev { transform: rotate(180deg); }
+  .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s cubic-bezier(0.16,1,0.3,1); }
+  .faq-row.open .faq-a { grid-template-rows: 1fr; }
+  .faq-a-inner { overflow: hidden; }
+  .faq-a p { color: var(--ink-soft); font-size: 0.97rem; padding: 0 22px 20px; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--ink); color: #e7e0d0; padding: 56px 0 30px; }
+  .foot-top { display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; align-items: flex-start; }
+  .foot-top .brand { color: #fff; }
+  .foot-top .brand .mark { background: linear-gradient(135deg, var(--mint-deep), var(--mint-dark)); box-shadow: none; }
+  .foot-cols { display: flex; gap: 60px; flex-wrap: wrap; }
+  .foot-cols h4 { font-family: inherit; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: #a99d86; margin-bottom: 12px; }
+  .foot-cols a { display: block; color: #d8cfbc; text-decoration: none; margin-bottom: 8px; font-size: 0.95rem; }
+  .foot-cols a:hover { color: #fff; }
+  .legal { margin-top: 40px; padding-top: 22px; border-top: 1px solid #5a4f3d; font-size: 0.84rem; color: #a99d86; max-width: 70ch; }
+  .legal a { color: #d8cfbc; }
+
+  @media (max-width: 860px) {
+    .how-cards { grid-template-columns: 1fr; max-width: 460px; }
+    .how-indicators { display: none; }
+    .form-grid { grid-template-columns: 1fr; gap: 30px; }
+    .form-intro { position: static; top: auto; }
+    .hero { padding: 40px 0 56px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 8px; }
+    .hero-art { order: -1; }
+    .hero-art img { max-width: 200px; }
+    .intro-kiwi { display: none; }
+    .note { flex-direction: column; text-align: center; gap: 10px; }
+    .note-kiwi { width: 84px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html" aria-label="KiwiQuote home">
+      <span class="mark"><img src="assets/kiwi-head.png" alt="KiwiQuote kiwi" /></span><span class="word">Kiwi<b>Quote</b></span></a>
+    <a class="nav-cta" href="#quote">Get my free check &rarr;</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <h1>See if you could be <span class="hl">paying less</span> on your life insurance.</h1>
+      <p class="lede">Pop in a few details and one of our team will give you a quick 5-minute call to check whether you could be getting a better deal. No jargon. No hard sell. Just a friendly chat.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#quote">Start my free check &rarr;</a>
+        <a class="btn btn-ghost" href="#how">How it works</a>
+      </div>
+      <div class="reassure">
+        <span><span class="tick">&check;</span> Takes about 5 minutes</span>
+        <span><span class="tick">&check;</span> We call you, when it suits</span>
+        <span><span class="tick">&check;</span> Zero obligation</span>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="assets/kiwi-suit.png" alt="KiwiQuote's friendly kiwi mascot in a suit" />
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="section tint" id="quote">
+  <span class="blob b1"></span><span class="blob b2"></span>
+  <div class="wrap form-grid">
+
+    <div class="form-intro">
+      <span class="eyebrow">Free insurance check</span>
+      <h2>Let's see what we can do.</h2>
+      <p>Fill in your details and we'll be in touch for a quick, friendly chat. The more you tell us, the more useful the call.</p>
+      <ul class="mini-list">
+        <li><span class="tick">&check;</span> No cost and no obligation, ever</li>
+        <li><span class="tick">&check;</span> We only call at a time you choose</li>
+        <li><span class="tick">&check;</span> Your details stay private and safe</li>
+      </ul>
+      <img class="intro-kiwi" src="assets/kiwi-clipboard.png" alt="" aria-hidden="true" />
+    </div>
+
+    <div class="card survey" id="survey">
+      <div class="survey-top">
+        <span class="survey-count" id="surveyCount">Question 1 of 5</span>
+        <div class="survey-progress"><span class="survey-bar" id="surveyBar"></span></div>
+      </div>
+
+      <form id="leadForm" novalidate>
+        <!-- Step 1: interest -->
+        <div class="survey-step is-active" data-step="0" data-name="interest" data-required="1">
+          <h3 class="survey-q">What are you mainly interested in?</h3>
+          <p class="survey-help">Pick whichever feels closest, you can chat the rest through on the call.</p>
+          <div class="choices choices-stack" role="radiogroup">
+            <span class="choice"><input type="radio" id="i1" name="interest" value="Life insurance" /><label for="i1">Life insurance</label></span>
+            <span class="choice"><input type="radio" id="i2" name="interest" value="Medical / health" /><label for="i2">Medical / health</label></span>
+            <span class="choice"><input type="radio" id="i3" name="interest" value="Income protection" /><label for="i3">Income protection</label></span>
+            <span class="choice"><input type="radio" id="i4" name="interest" value="Not sure yet" /><label for="i4">Not sure yet</label></span>
+          </div>
+        </div>
+
+        <!-- Step 2: has insurance -->
+        <div class="survey-step" data-step="1" data-name="hasInsurance" data-required="1">
+          <h3 class="survey-q">Do you currently have insurance?</h3>
+          <p class="survey-help">No wrong answer here, it just helps us help you.</p>
+          <div class="choices choices-stack" role="radiogroup">
+            <span class="choice"><input type="radio" id="h1" name="hasInsurance" value="Yes" /><label for="h1">Yes</label></span>
+            <span class="choice"><input type="radio" id="h2" name="hasInsurance" value="No" /><label for="h2">No</label></span>
+            <span class="choice"><input type="radio" id="h3" name="hasInsurance" value="Not sure" /><label for="h3">Not sure</label></span>
+          </div>
+        </div>
+
+        <!-- Step 3: age -->
+        <div class="survey-step" data-step="2" data-name="age">
+          <h3 class="survey-q">Roughly how old are you?</h3>
+          <p class="survey-help">A rough range is perfectly fine.</p>
+          <div class="choices choices-stack" role="radiogroup">
+            <span class="choice"><input type="radio" id="a1" name="age" value="Under 30" /><label for="a1">Under 30</label></span>
+            <span class="choice"><input type="radio" id="a2" name="age" value="30-44" /><label for="a2">30 to 44</label></span>
+            <span class="choice"><input type="radio" id="a3" name="age" value="45-59" /><label for="a3">45 to 59</label></span>
+            <span class="choice"><input type="radio" id="a4" name="age" value="60+" /><label for="a4">60+</label></span>
+          </div>
+        </div>
+
+        <!-- Step 4: best time to call -->
+        <div class="survey-step" data-step="3" data-name="callTime">
+          <h3 class="survey-q">When's a good time to call?</h3>
+          <p class="survey-help">We'll do our best to ring when it suits you.</p>
+          <div class="choices choices-stack" role="radiogroup">
+            <span class="choice"><input type="radio" id="t1" name="callTime" value="Morning" /><label for="t1">Morning</label></span>
+            <span class="choice"><input type="radio" id="t2" name="callTime" value="Afternoon" /><label for="t2">Afternoon</label></span>
+            <span class="choice"><input type="radio" id="t3" name="callTime" value="After 5pm" /><label for="t3">After 5pm</label></span>
+            <span class="choice"><input type="radio" id="t4" name="callTime" value="Any time" /><label for="t4">Any time's fine</label></span>
+          </div>
+        </div>
+
+        <!-- Step 5: contact details -->
+        <div class="survey-step" data-step="4" data-name="contact">
+          <h3 class="survey-q">Last bit, how do we reach you?</h3>
+          <p class="survey-help">So we can give you that quick, friendly call.</p>
+
+          <div class="field">
+            <label for="name">Your name <span class="req">*</span></label>
+            <input type="text" id="name" name="name" placeholder="e.g. Sam Taylor" required />
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone number <span class="req">*</span> <span class="demo-tag">verify demo</span></label>
+            <div class="verify-row">
+              <input type="tel" id="phone" name="phone" placeholder="021 234 5678" required />
+              <button type="button" class="btn-verify" id="sendCode">Send code</button>
+            </div>
+            <div class="verify-box" id="verifyBox">
+              <p>We sent a 4-digit code to your phone. Pop it in below to confirm your number. <em>(This is a demo, so the code is <strong>1234</strong>.)</em></p>
+              <div class="code-row">
+                <input type="text" id="code" inputmode="numeric" maxlength="4" placeholder="1234" />
+                <button type="button" class="btn-verify" id="checkCode">Confirm</button>
+              </div>
+            </div>
+            <span class="verified-tag" id="verifiedTag"><span class="tick">&check;</span> Number confirmed, nice one!</span>
+          </div>
+
+          <div class="field">
+            <label for="email">Email address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="you@email.co.nz" required />
+          </div>
+
+          <div class="field">
+            <label for="notes">Anything else we should know? <span class="hint">(optional)</span></label>
+            <textarea id="notes" name="notes" placeholder="e.g. I think I'm overpaying, or I just want a second opinion."></textarea>
+          </div>
+        </div>
+
+        <div class="survey-nav">
+          <button type="button" class="btn-back" id="backBtn">&larr; Back</button>
+          <div class="survey-nav-right">
+            <button type="button" class="skip-btn" id="skipBtn" hidden>Skip</button>
+            <button type="button" class="btn btn-primary" id="nextBtn">Next &rarr;</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn" hidden>Send my details &rarr;</button>
+          </div>
+        </div>
+        <p class="fineprint" id="finePrint" hidden>By sending this you're happy for our team to give you a quick call. No obligation, and you can opt out any time.</p>
+      </form>
+
+      <!-- Thank you -->
+      <div class="thanks" id="thanks">
+        <img class="thanks-kiwi" src="assets/kiwi-cool.png" alt="" aria-hidden="true" />
+        <h3>Thanks, you're all sorted!</h3>
+        <p>We've got your details. Someone from the team may give you a quick call to see if we can help. Keep an eye on your phone, talk soon!</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="how-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Three easy steps. That's the whole thing.</h2>
+      <p class="sub">We keep it simple, because insurance is confusing enough already. Here's exactly what happens after you fill in the form.</p>
+    </div>
+
+    <div class="how-indicators" aria-hidden="true">
+      <span class="how-line"></span>
+      <div class="how-nums">
+        <span class="how-num">1</span>
+        <span class="how-num">2</span>
+        <span class="how-num">3</span>
+      </div>
+    </div>
+
+    <div class="how-cards">
+      <div class="how-card">
+        <div class="how-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
+        </div>
+        <h3>Tell us a little</h3>
+        <p>Answer a handful of quick questions so we understand your situation. No paperwork, no policy numbers to dig out.</p>
+        <ul class="how-benefits">
+          <li><span class="bdot"></span> Just a few simple questions</li>
+          <li><span class="bdot"></span> No paperwork or policy numbers</li>
+          <li><span class="bdot"></span> Takes about 5 minutes</li>
+        </ul>
+      </div>
+
+      <div class="how-card">
+        <div class="how-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+        </div>
+        <h3>We give you a call</h3>
+        <p>One of our friendly team rings you, takes a quick look at what you've got, and chats through whether you could do better.</p>
+        <ul class="how-benefits">
+          <li><span class="bdot"></span> We call at a time that suits you</li>
+          <li><span class="bdot"></span> A friendly look at your cover</li>
+          <li><span class="bdot"></span> No jargon, no hard sell</li>
+        </ul>
+      </div>
+
+      <div class="how-card">
+        <div class="how-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>You decide what's next</h3>
+        <p>If it looks like you could save, a licensed adviser can take it from there. If not, no worries at all.</p>
+        <ul class="how-benefits">
+          <li><span class="bdot"></span> See if you could be paying less</li>
+          <li><span class="bdot"></span> A licensed adviser, only if it helps</li>
+          <li><span class="bdot"></span> Zero obligation, never locked in</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <img class="note-kiwi" src="assets/kiwi-phone.png" alt="" aria-hidden="true" />
+      <div><strong>Just so you know:</strong> the form and the first call are simply to understand your situation. We don't give financial advice over the form or the intro call. If it makes sense, a licensed financial adviser may follow up to talk things through properly.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section tint">
+  <div class="wrap faq-head">
+    <span class="eyebrow">Good to know</span>
+    <h2>A few common questions</h2>
+    <div class="faq" id="faq">
+      <div class="faq-row open">
+        <button class="faq-q" type="button" aria-expanded="true">
+          <span>Is this really free?</span>
+          <svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Yes, completely. The check and the chat won't cost you a thing. We only get paid if you choose to go ahead with a better policy down the track, and even then it's the insurer who pays us, not you.</p></div></div>
+      </div>
+      <div class="faq-row">
+        <button class="faq-q" type="button" aria-expanded="false">
+          <span>Will I get hassled with calls?</span>
+          <svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Nope. We'll give you one friendly call at the time you picked. If it's not for you, that's totally fine and we'll leave it there.</p></div></div>
+      </div>
+      <div class="faq-row">
+        <button class="faq-q" type="button" aria-expanded="false">
+          <span>Do I have to switch anything?</span>
+          <svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Not at all. Plenty of people just want a second opinion to check they're not overpaying. You're in control the whole way through.</p></div></div>
+      </div>
+      <div class="faq-row">
+        <button class="faq-q" type="button" aria-expanded="false">
+          <span>Is my information safe?</span>
+          <svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Yes. Your details are only used to give you a call about your insurance, and they're kept private and secure. We never sell your information.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="brand">
+          <span class="mark mark-footer"><img src="assets/kiwi-head.png" alt="KiwiQuote kiwi" /></span>KiwiQuote</div>
+        <p style="margin-top:14px; max-width:32ch; color:#b3a890; font-size:0.95rem;">Helping everyday Kiwis check they're getting a fair deal on their insurance.</p>
+      </div>
+      <div class="foot-cols">
+        <div>
+          <h4>Company</h4>
+          <a href="#how">How it works</a>
+          <a href="#quote">Free check</a>
+        </div>
+        <div>
+          <h4>Get in touch</h4>
+          <a href="mailto:admin@kiwiquote.co.nz">admin@kiwiquote.co.nz</a>
+          <a href="tel:0800000000">0800 000 000</a>
+        </div>
+      </div>
+    </div>
+    <p class="legal">
+      KiwiQuote helps connect you with licensed financial advisers. We don't provide financial advice through this website or our intro call. Any advice is provided by a licensed financial adviser, and a copy of their disclosure information is available on request.
+      <br/><br/>
+      &copy; <span id="year"></span> KiwiQuote. All rights reserved.
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- FAQ accordion (single open at a time) ----
+  document.querySelectorAll('#faq .faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var row = btn.closest('.faq-row');
+      var isOpen = row.classList.contains('open');
+      document.querySelectorAll('#faq .faq-row.open').forEach(function (r) {
+        r.classList.remove('open');
+        r.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        row.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // ---- Phone verification (front-end demo) ----
+  var phoneVerified = false;
+  var sendBtn = document.getElementById('sendCode');
+  var verifyBox = document.getElementById('verifyBox');
+  var checkBtn = document.getElementById('checkCode');
+  var codeInput = document.getElementById('code');
+  var verifiedTag = document.getElementById('verifiedTag');
+  var phoneInput = document.getElementById('phone');
+
+  sendBtn.addEventListener('click', function () {
+    if (!phoneInput.value.trim()) {
+      phoneInput.focus();
+      phoneInput.style.borderColor = '#b4532e';
+      return;
+    }
+    verifyBox.classList.add('show');
+    sendBtn.textContent = 'Resend';
+    codeInput.focus();
+  });
+
+  checkBtn.addEventListener('click', function () {
+    if (codeInput.value.trim() === '1234') {
+      phoneVerified = true;
+      verifyBox.classList.remove('show');
+      verifiedTag.classList.add('show');
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Confirmed';
+    } else {
+      codeInput.style.borderColor = '#b4532e';
+      codeInput.value = '';
+      codeInput.placeholder = 'Try again';
+    }
+  });
+
+  // ---- Submit ----
+  // Paste the deployed Google Apps Script Web App URL between the quotes below.
+  // (See google-apps-script/README.md for the 5-minute setup. Until it's filled
+  //  in, the form still works for the visitor; it just won't deliver the lead.)
+  var LEAD_ENDPOINT = "";
+
+  var form = document.getElementById('leadForm');
+  var thanks = document.getElementById('thanks');
+  var submitBtn = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    // simple required check
+    var required = ['name', 'phone', 'email'];
+    var ok = true;
+    required.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (!el.value.trim()) { el.style.borderColor = '#b4532e'; ok = false; }
+    });
+    var interest = form.querySelector('input[name="interest"]:checked');
+    var has = form.querySelector('input[name="hasInsurance"]:checked');
+    if (!interest || !has) { ok = false; }
+
+    if (!ok) {
+      if (!interest || !has) {
+        alert('Just a couple more taps: please pick what you\'re interested in and whether you currently have insurance.');
+      }
+      return;
+    }
+
+    function pick(name) {
+      var el = form.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : '';
+    }
+
+    var data = {
+      name: document.getElementById('name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      phoneVerified: phoneVerified ? 'yes' : 'no',
+      email: document.getElementById('email').value.trim(),
+      interest: pick('interest'),
+      hasInsurance: pick('hasInsurance'),
+      age: pick('age'),
+      callTime: pick('callTime'),
+      notes: document.getElementById('notes').value.trim(),
+      source: 'kiwiquote.co.nz'
+    };
+
+    function showThanks() {
+      form.style.display = 'none';
+      thanks.classList.add('show');
+      thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Send the lead to the Google Apps Script Web App (emails admin@ + appends to the sheet).
+    if (LEAD_ENDPOINT) {
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending...'; }
+      fetch(LEAD_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(data)
+      }).then(showThanks).catch(showThanks);
+    } else {
+      showThanks();
+    }
+  });
+
+  // ---- Survey step navigation ----
+  (function () {
+    var steps = Array.prototype.slice.call(form.querySelectorAll('.survey-step'));
+    var total = steps.length;
+    var bar = document.getElementById('surveyBar');
+    var countEl = document.getElementById('surveyCount');
+    var backBtn = document.getElementById('backBtn');
+    var nextBtn = document.getElementById('nextBtn');
+    var skipBtn = document.getElementById('skipBtn');
+    var finePrint = document.getElementById('finePrint');
+    var current = 0;
+
+    function render() {
+      steps.forEach(function (s, i) { s.classList.toggle('is-active', i === current); });
+      bar.style.width = ((current + 1) / total * 100) + '%';
+      countEl.textContent = 'Question ' + (current + 1) + ' of ' + total;
+
+      var isLast = current === total - 1;
+      var optional = !steps[current].hasAttribute('data-required');
+
+      backBtn.hidden = current === 0;
+      nextBtn.hidden = isLast;
+      submitBtn.hidden = !isLast;
+      finePrint.hidden = !isLast;
+      skipBtn.hidden = isLast || !optional;
+    }
+
+    function stepValid() {
+      var step = steps[current];
+      if (step.hasAttribute('data-required')) {
+        var name = step.getAttribute('data-name');
+        if (!form.querySelector('input[name="' + name + '"]:checked')) {
+          step.querySelectorAll('.choice label').forEach(function (l) {
+            l.style.borderColor = '#b4532e';
+          });
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function go(dir) {
+      var target = current + dir;
+      if (target < 0 || target >= total) { return; }
+      current = target;
+      render();
+      var firstInput = steps[current].querySelector('input, textarea');
+      if (firstInput && current === total - 1) { firstInput.focus(); }
+    }
+
+    nextBtn.addEventListener('click', function () { if (stepValid()) { go(1); } });
+    backBtn.addEventListener('click', function () { go(-1); });
+    skipBtn.addEventListener('click', function () { go(1); });
+
+    // Auto-advance the multiple-choice steps when an option is picked.
+    steps.forEach(function (step, i) {
+      if (i === total - 1) { return; } // contact step is not a choice step
+      step.addEventListener('change', function (e) {
+        if (e.target && e.target.type === 'radio') {
+          step.querySelectorAll('.choice label').forEach(function (l) { l.style.borderColor = ''; });
+          setTimeout(function () { if (current === i) { go(1); } }, 280);
+        }
+      });
+    });
+
+    render();
+  })();
+</script>
+
+</body>
+</html>
