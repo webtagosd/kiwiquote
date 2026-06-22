@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "id": "site",
+      "label": "Site / deployment",
+      "description": "Top-level site config — canonical URL used by social link previews. Must be set per-deploy.",
+      "fields": [
+        { "key": "site.canonical_url", "type": "url", "label": "Canonical site URL", "help": "Absolute URL of the deployed site, e.g. \"https://kiwiquote.co.nz\".", "required": true }
+      ]
+    },
+    {
+      "id": "business",
+      "label": "Business details",
+      "description": "Core brand info shown across the site (logo, name, contact).",
+      "fields": [
+        { "key": "business.name", "type": "text", "label": "Business name", "required": true, "maxLength": 60 },
+        { "key": "business.logo_image_url", "type": "text", "label": "Logo image path or URL", "help": "Kiwi mark shown in the nav/footer.", "maxLength": 300 },
+        { "key": "business.tagline", "type": "text", "label": "Tagline", "required": true, "maxLength": 120 },
+        { "key": "business.locationLabel", "type": "text", "label": "Location label", "help": "e.g. \"New Zealand\".", "maxLength": 60 },
+        { "key": "business.email", "type": "email", "label": "Lead / contact email", "required": true },
+        { "key": "business.phone.display", "type": "text", "label": "Phone (display)", "maxLength": 20 },
+        { "key": "business.phone.tel", "type": "text", "label": "Phone (tel link)", "help": "E.164 format for click-to-call, e.g. \"+6480000000\".", "maxLength": 20 },
+        { "key": "business.copyright", "type": "text", "label": "Copyright line", "maxLength": 100 }
+      ]
+    },
+    {
+      "id": "seo",
+      "label": "SEO & social meta",
+      "description": "Browser-tab title and search/social description.",
+      "fields": [
+        { "key": "seo.title", "type": "text", "label": "Page title", "required": true, "maxLength": 90 },
+        { "key": "seo.description", "type": "longtext", "label": "Meta description", "required": true, "maxLength": 200 }
+      ]
+    },
+    {
+      "id": "nav",
+      "label": "Navigation",
+      "description": "The sticky top nav button.",
+      "fields": [
+        { "key": "nav.ctaLabel", "type": "text", "label": "Nav CTA label", "required": true, "maxLength": 30 },
+        { "key": "nav.ctaHref", "type": "text", "label": "Nav CTA anchor", "required": true, "maxLength": 60 }
+      ]
+    },
+    {
+      "id": "hero",
+      "label": "Hero",
+      "description": "The first thing visitors see.",
+      "fields": [
+        { "key": "hero.headline", "type": "text", "label": "Headline", "required": true, "maxLength": 90 },
+        { "key": "hero.highlight", "type": "text", "label": "Highlighted words", "help": "The phrase inside the headline that gets the gold highlight, e.g. \"paying less\".", "maxLength": 40 },
+        { "key": "hero.subheadline", "type": "longtext", "label": "Sub-headline", "required": true, "maxLength": 300 },
+        { "key": "hero.primaryCta.label", "type": "text", "label": "Primary button label", "required": true, "maxLength": 30 },
+        { "key": "hero.primaryCta.href", "type": "text", "label": "Primary button anchor", "required": true, "maxLength": 60 },
+        { "key": "hero.secondaryCta.label", "type": "text", "label": "Secondary button label", "required": true, "maxLength": 30 },
+        { "key": "hero.secondaryCta.href", "type": "text", "label": "Secondary button anchor", "required": true, "maxLength": 60 },
+        {
+          "key": "hero.reassurances",
+          "type": "list",
+          "label": "Reassurance ticks",
+          "minItems": 0,
+          "maxItems": 4,
+          "itemSchema": [
+            { "key": "value", "type": "text", "label": "Reassurance", "required": true, "maxLength": 40 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "label": "Free check (survey form)",
+      "description": "Intro copy for the survey-style lead form, plus the survey questions and their options.",
+      "fields": [
+        { "key": "check.eyebrow", "type": "text", "label": "Eyebrow line", "maxLength": 60 },
+        { "key": "check.headline", "type": "text", "label": "Headline", "required": true, "maxLength": 80 },
+        { "key": "check.subheadline", "type": "longtext", "label": "Sub-headline", "maxLength": 300 },
+        {
+          "key": "check.miniList",
+          "type": "list",
+          "label": "Reassurance list",
+          "minItems": 0,
+          "maxItems": 4,
+          "itemSchema": [
+            { "key": "value", "type": "text", "label": "Item", "required": true, "maxLength": 60 }
+          ]
+        },
+        {
+          "key": "check.questions",
+          "type": "list",
+          "label": "Survey questions",
+          "help": "The multiple-choice steps shown one at a time.",
+          "minItems": 1,
+          "maxItems": 8,
+          "itemSchema": [
+            { "key": "prompt", "type": "text", "label": "Question", "required": true, "maxLength": 80 },
+            { "key": "help", "type": "text", "label": "Helper line", "maxLength": 120 },
+            { "key": "options", "type": "text", "label": "Options", "help": "Comma-separated answer options.", "required": true, "maxLength": 300 },
+            { "key": "required", "type": "text", "label": "Required? (yes/no)", "maxLength": 4 }
+          ]
+        },
+        { "key": "check.successHeadline", "type": "text", "label": "Thank-you headline", "required": true, "maxLength": 60 },
+        { "key": "check.successMessage", "type": "longtext", "label": "Thank-you message", "required": true, "maxLength": 300 }
+      ]
+    },
+    {
+      "id": "how",
+      "label": "How it works",
+      "description": "Three-step explainer.",
+      "fields": [
+        { "key": "how.eyebrow", "type": "text", "label": "Eyebrow line", "maxLength": 60 },
+        { "key": "how.headline", "type": "text", "label": "Headline", "required": true, "maxLength": 80 },
+        { "key": "how.subheadline", "type": "longtext", "label": "Sub-headline", "maxLength": 300 },
+        {
+          "key": "how.steps",
+          "type": "list",
+          "label": "Steps",
+          "minItems": 1,
+          "maxItems": 3,
+          "itemSchema": [
+            { "key": "title", "type": "text", "label": "Step title", "required": true, "maxLength": 40 },
+            { "key": "desc", "type": "longtext", "label": "Step description", "required": true, "maxLength": 240 },
+            { "key": "benefits", "type": "text", "label": "Benefits", "help": "Comma-separated bullet points.", "maxLength": 300 }
+          ]
+        },
+        { "key": "how.note", "type": "longtext", "label": "Disclaimer note", "maxLength": 400 }
+      ]
+    },
+    {
+      "id": "faq",
+      "label": "FAQ",
+      "description": "Common questions accordion.",
+      "fields": [
+        { "key": "faq.eyebrow", "type": "text", "label": "Eyebrow line", "maxLength": 60 },
+        { "key": "faq.headline", "type": "text", "label": "Headline", "required": true, "maxLength": 80 },
+        {
+          "key": "faq.list",
+          "type": "list",
+          "label": "Questions",
+          "minItems": 1,
+          "maxItems": 12,
+          "itemSchema": [
+            { "key": "question", "type": "text", "label": "Question", "required": true, "maxLength": 120 },
+            { "key": "answer", "type": "longtext", "label": "Answer", "required": true, "maxLength": 500 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "footer",
+      "label": "Footer",
+      "description": "Footer blurb and legal line.",
+      "fields": [
+        { "key": "footer.blurb", "type": "longtext", "label": "Footer blurb", "maxLength": 300 },
+        { "key": "footer.legal", "type": "longtext", "label": "Legal / disclaimer", "maxLength": 500 }
+      ]
+    }
+  ]
+}

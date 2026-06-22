@@ -1,0 +1,124 @@
+{
+  "site": {
+    "canonical_url": "https://kiwiquote.vercel.app"
+  },
+  "business": {
+    "name": "KiwiQuote",
+    "logo_image_url": "/assets/kiwi-head.png",
+    "tagline": "A quick yarn that could save you heaps on your insurance.",
+    "locationLabel": "New Zealand",
+    "email": "admin@kiwiquote.co.nz",
+    "phone": {
+      "display": "0800 000 000",
+      "tel": "+6480000000"
+    },
+    "copyright": "© KiwiQuote. All rights reserved."
+  },
+  "seo": {
+    "title": "See if you could save on your life insurance",
+    "description": "A quick, friendly 5-minute call to see if you could be paying less for your life or medical insurance. No jargon, no pressure."
+  },
+  "nav": {
+    "ctaLabel": "Get my free check",
+    "ctaHref": "#quote"
+  },
+  "hero": {
+    "headline": "See if you could be paying less on your life insurance.",
+    "highlight": "paying less",
+    "subheadline": "Pop in a few details and one of our team will give you a quick 5-minute call to check whether you could be getting a better deal. No jargon. No hard sell. Just a friendly chat.",
+    "primaryCta": { "label": "Start my free check", "href": "#quote" },
+    "secondaryCta": { "label": "How it works", "href": "#how" },
+    "reassurances": [
+      { "value": "Takes about 5 minutes" },
+      { "value": "We call you, when it suits" },
+      { "value": "Zero obligation" }
+    ]
+  },
+  "check": {
+    "eyebrow": "Free insurance check",
+    "headline": "Let's see what we can do.",
+    "subheadline": "Fill in your details and we'll be in touch for a quick, friendly chat. The more you tell us, the more useful the call.",
+    "miniList": [
+      { "value": "No cost and no obligation, ever" },
+      { "value": "We only call at a time you choose" },
+      { "value": "Your details stay private and safe" }
+    ],
+    "questions": [
+      {
+        "prompt": "What are you mainly interested in?",
+        "help": "Pick whichever feels closest, you can chat the rest through on the call.",
+        "options": "Life insurance, Medical / health, Income protection, Not sure yet",
+        "required": "yes"
+      },
+      {
+        "prompt": "Do you currently have insurance?",
+        "help": "No wrong answer here, it just helps us help you.",
+        "options": "Yes, No, Not sure",
+        "required": "yes"
+      },
+      {
+        "prompt": "Roughly how old are you?",
+        "help": "A rough range is perfectly fine.",
+        "options": "Under 30, 30 to 44, 45 to 59, 60+",
+        "required": "no"
+      },
+      {
+        "prompt": "When's a good time to call?",
+        "help": "We'll do our best to ring when it suits you.",
+        "options": "Morning, Afternoon, After 5pm, Any time's fine",
+        "required": "no"
+      }
+    ],
+    "successHeadline": "Thanks, you're all sorted!",
+    "successMessage": "We've got your details. Someone from the team may give you a quick call to see if we can help. Keep an eye on your phone, talk soon!"
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "headline": "Three easy steps. That's the whole thing.",
+    "subheadline": "We keep it simple, because insurance is confusing enough already. Here's exactly what happens after you fill in the form.",
+    "steps": [
+      {
+        "title": "Tell us a little",
+        "desc": "Answer a handful of quick questions so we understand your situation. No paperwork, no policy numbers to dig out.",
+        "benefits": "Just a few simple questions, No paperwork or policy numbers, Takes about 5 minutes"
+      },
+      {
+        "title": "We give you a call",
+        "desc": "One of our friendly team rings you, takes a quick look at what you've got, and chats through whether you could do better.",
+        "benefits": "We call at a time that suits you, A friendly look at your cover, No jargon, no hard sell"
+      },
+      {
+        "title": "You decide what's next",
+        "desc": "If it looks like you could save, a licensed adviser can take it from there. If not, no worries at all.",
+        "benefits": "See if you could be paying less, A licensed adviser only if it helps, Zero obligation, never locked in"
+      }
+    ],
+    "note": "Just so you know: the form and the first call are simply to understand your situation. We don't give financial advice over the form or the intro call. If it makes sense, a licensed financial adviser may follow up to talk things through properly."
+  },
+  "faq": {
+    "eyebrow": "Good to know",
+    "headline": "A few common questions",
+    "list": [
+      {
+        "question": "Is this really free?",
+        "answer": "Yes, completely. The check and the chat won't cost you a thing. We only get paid if you choose to go ahead with a better policy down the track, and even then it's the insurer who pays us, not you."
+      },
+      {
+        "question": "Will I get hassled with calls?",
+        "answer": "Nope. We'll give you one friendly call at the time you picked. If it's not for you, that's totally fine and we'll leave it there."
+      },
+      {
+        "question": "Do I have to switch anything?",
+        "answer": "Not at all. Plenty of people just want a second opinion to check they're not overpaying. You're in control the whole way through."
+      },
+      {
+        "question": "Is my information safe?",
+        "answer": "Yes. Your details are only used to give you a call about your insurance, and they're kept private and secure. We never sell your information."
+      }
+    ]
+  },
+  "footer": {
+    "blurb": "Helping everyday Kiwis check they're getting a fair deal on their insurance.",
+    "legal": "KiwiQuote helps connect you with licensed financial advisers. We don't provide financial advice through this website or our intro call. Any advice is provided by a licensed financial adviser, and a copy of their disclosure information is available on request."
+  }
+}
