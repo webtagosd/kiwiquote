@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>KiwiQuote — See if you could save on your life insurance</title>
-<meta name="description" content="A quick, friendly 5-minute call to see if you could be paying less for your life or medical insurance. No jargon, no pressure." />
+<meta name="description" content="A quick, friendly 5-minute call to see if you could be paying less for your life or medical insurance. No jargon, no pressure." data-cms-content="seo.description" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -334,7 +334,7 @@
   <div class="wrap nav">
     <a class="brand" href="index.html" aria-label="KiwiQuote home">
       <span class="mark"><img src="assets/kiwi-head.png" alt="KiwiQuote kiwi" /></span><span class="word">Kiwi<b>Quote</b></span></a>
-    <a class="nav-cta" href="#quote">Get my free check &rarr;</a>
+    <a class="nav-cta" href="#quote" data-cms-href="nav.ctaHref"><span data-cms="nav.ctaLabel">Get my free check</span> &rarr;</a>
   </div>
 </header>
 
@@ -343,16 +343,16 @@
   <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <h1>See if you could be <span class="hl">paying less</span> on your life insurance.</h1>
-      <p class="lede">Pop in a few details and one of our team will give you a quick 5-minute call to check whether you could be getting a better deal. No jargon. No hard sell. Just a friendly chat.</p>
+      <h1 id="heroHeadline">See if you could be <span class="hl">paying less</span> on your life insurance.</h1>
+      <p class="lede" data-cms="hero.subheadline">Pop in a few details and one of our team will give you a quick 5-minute call to check whether you could be getting a better deal. No jargon. No hard sell. Just a friendly chat.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#quote">Start my free check &rarr;</a>
-        <a class="btn btn-ghost" href="#how">How it works</a>
+        <a class="btn btn-primary" href="#quote" data-cms-href="hero.primaryCta.href"><span data-cms="hero.primaryCta.label">Start my free check</span> &rarr;</a>
+        <a class="btn btn-ghost" href="#how" data-cms-href="hero.secondaryCta.href" data-cms="hero.secondaryCta.label">How it works</a>
       </div>
       <div class="reassure">
-        <span><span class="tick">&check;</span> Takes about 5 minutes</span>
-        <span><span class="tick">&check;</span> We call you, when it suits</span>
-        <span><span class="tick">&check;</span> Zero obligation</span>
+        <span><span class="tick">&check;</span> <span data-cms="hero.reassurances.0.value">Takes about 5 minutes</span></span>
+        <span><span class="tick">&check;</span> <span data-cms="hero.reassurances.1.value">We call you, when it suits</span></span>
+        <span><span class="tick">&check;</span> <span data-cms="hero.reassurances.2.value">Zero obligation</span></span>
       </div>
     </div>
     <div class="hero-art">
@@ -367,13 +367,13 @@
   <div class="wrap form-grid">
 
     <div class="form-intro">
-      <span class="eyebrow">Free insurance check</span>
-      <h2>Let's see what we can do.</h2>
-      <p>Fill in your details and we'll be in touch for a quick, friendly chat. The more you tell us, the more useful the call.</p>
+      <span class="eyebrow" data-cms="check.eyebrow">Free insurance check</span>
+      <h2 data-cms="check.headline">Let's see what we can do.</h2>
+      <p data-cms="check.subheadline">Fill in your details and we'll be in touch for a quick, friendly chat. The more you tell us, the more useful the call.</p>
       <ul class="mini-list">
-        <li><span class="tick">&check;</span> No cost and no obligation, ever</li>
-        <li><span class="tick">&check;</span> We only call at a time you choose</li>
-        <li><span class="tick">&check;</span> Your details stay private and safe</li>
+        <li><span class="tick">&check;</span> <span data-cms="check.miniList.0.value">No cost and no obligation, ever</span></li>
+        <li><span class="tick">&check;</span> <span data-cms="check.miniList.1.value">We only call at a time you choose</span></li>
+        <li><span class="tick">&check;</span> <span data-cms="check.miniList.2.value">Your details stay private and safe</span></li>
       </ul>
       <img class="intro-kiwi" src="assets/kiwi-clipboard.png" alt="" aria-hidden="true" />
     </div>
@@ -472,8 +472,8 @@
       <!-- Thank you -->
       <div class="thanks" id="thanks">
         <img class="thanks-kiwi" src="assets/kiwi-cool.png" alt="" aria-hidden="true" />
-        <h3>Thanks, you're all sorted!</h3>
-        <p>We've got your details. Someone from the team may give you a quick call to see if we can help. Keep an eye on your phone, talk soon!</p>
+        <h3 data-cms="check.successHeadline">Thanks, you're all sorted!</h3>
+        <p data-cms="check.successMessage">We've got your details. Someone from the team may give you a quick call to see if we can help. Keep an eye on your phone, talk soon!</p>
       </div>
     </div>
 
@@ -484,9 +484,9 @@
 <section class="section" id="how">
   <div class="wrap">
     <div class="how-head">
-      <span class="eyebrow">How it works</span>
-      <h2>Three easy steps. That's the whole thing.</h2>
-      <p class="sub">We keep it simple, because insurance is confusing enough already. Here's exactly what happens after you fill in the form.</p>
+      <span class="eyebrow" data-cms="how.eyebrow">How it works</span>
+      <h2 data-cms="how.headline">Three easy steps. That's the whole thing.</h2>
+      <p class="sub" data-cms="how.subheadline">We keep it simple, because insurance is confusing enough already. Here's exactly what happens after you fill in the form.</p>
     </div>
 
     <div class="how-indicators" aria-hidden="true">
@@ -503,9 +503,9 @@
         <div class="how-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
         </div>
-        <h3>Tell us a little</h3>
-        <p>Answer a handful of quick questions so we understand your situation. No paperwork, no policy numbers to dig out.</p>
-        <ul class="how-benefits">
+        <h3 data-cms="how.steps.0.title">Tell us a little</h3>
+        <p data-cms="how.steps.0.desc">Answer a handful of quick questions so we understand your situation. No paperwork, no policy numbers to dig out.</p>
+        <ul class="how-benefits" data-cms-benefits="how.steps.0.benefits">
           <li><span class="bdot"></span> Just a few simple questions</li>
           <li><span class="bdot"></span> No paperwork or policy numbers</li>
           <li><span class="bdot"></span> Takes about 5 minutes</li>
@@ -516,9 +516,9 @@
         <div class="how-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
         </div>
-        <h3>We give you a call</h3>
-        <p>One of our friendly team rings you, takes a quick look at what you've got, and chats through whether you could do better.</p>
-        <ul class="how-benefits">
+        <h3 data-cms="how.steps.1.title">We give you a call</h3>
+        <p data-cms="how.steps.1.desc">One of our friendly team rings you, takes a quick look at what you've got, and chats through whether you could do better.</p>
+        <ul class="how-benefits" data-cms-benefits="how.steps.1.benefits">
           <li><span class="bdot"></span> We call at a time that suits you</li>
           <li><span class="bdot"></span> A friendly look at your cover</li>
           <li><span class="bdot"></span> No jargon, no hard sell</li>
@@ -529,9 +529,9 @@
         <div class="how-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         </div>
-        <h3>You decide what's next</h3>
-        <p>If it looks like you could save, a licensed adviser can take it from there. If not, no worries at all.</p>
-        <ul class="how-benefits">
+        <h3 data-cms="how.steps.2.title">You decide what's next</h3>
+        <p data-cms="how.steps.2.desc">If it looks like you could save, a licensed adviser can take it from there. If not, no worries at all.</p>
+        <ul class="how-benefits" data-cms-benefits="how.steps.2.benefits">
           <li><span class="bdot"></span> See if you could be paying less</li>
           <li><span class="bdot"></span> A licensed adviser, only if it helps</li>
           <li><span class="bdot"></span> Zero obligation, never locked in</li>
@@ -541,7 +541,7 @@
 
     <div class="note">
       <img class="note-kiwi" src="assets/kiwi-phone.png" alt="" aria-hidden="true" />
-      <div><strong>Just so you know:</strong> the form and the first call are simply to understand your situation. We don't give financial advice over the form or the intro call. If it makes sense, a licensed financial adviser may follow up to talk things through properly.</div>
+      <div><strong>Just so you know:</strong> <span data-cms="how.note">the form and the first call are simply to understand your situation. We don't give financial advice over the form or the intro call. If it makes sense, a licensed financial adviser may follow up to talk things through properly.</span></div>
     </div>
   </div>
 </section>
@@ -549,36 +549,36 @@
 <!-- FAQ -->
 <section class="section tint">
   <div class="wrap faq-head">
-    <span class="eyebrow">Good to know</span>
-    <h2>A few common questions</h2>
+    <span class="eyebrow" data-cms="faq.eyebrow">Good to know</span>
+    <h2 data-cms="faq.headline">A few common questions</h2>
     <div class="faq" id="faq">
       <div class="faq-row open">
         <button class="faq-q" type="button" aria-expanded="true">
-          <span>Is this really free?</span>
+          <span data-cms="faq.list.0.question">Is this really free?</span>
           <svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><p>Yes, completely. The check and the chat won't cost you a thing. We only get paid if you choose to go ahead with a better policy down the track, and even then it's the insurer who pays us, not you.</p></div></div>
+        <div class="faq-a"><div class="faq-a-inner"><p data-cms="faq.list.0.answer">Yes, completely. The check and the chat won't cost you a thing. We only get paid if you choose to go ahead with a better policy down the track, and even then it's the insurer who pays us, not you.</p></div></div>
       </div>
       <div class="faq-row">
         <button class="faq-q" type="button" aria-expanded="false">
-          <span>Will I get hassled with calls?</span>
+          <span data-cms="faq.list.1.question">Will I get hassled with calls?</span>
           <svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><p>Nope. We'll give you one friendly call at the time you picked. If it's not for you, that's totally fine and we'll leave it there.</p></div></div>
+        <div class="faq-a"><div class="faq-a-inner"><p data-cms="faq.list.1.answer">Nope. We'll give you one friendly call at the time you picked. If it's not for you, that's totally fine and we'll leave it there.</p></div></div>
       </div>
       <div class="faq-row">
         <button class="faq-q" type="button" aria-expanded="false">
-          <span>Do I have to switch anything?</span>
+          <span data-cms="faq.list.2.question">Do I have to switch anything?</span>
           <svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><p>Not at all. Plenty of people just want a second opinion to check they're not overpaying. You're in control the whole way through.</p></div></div>
+        <div class="faq-a"><div class="faq-a-inner"><p data-cms="faq.list.2.answer">Not at all. Plenty of people just want a second opinion to check they're not overpaying. You're in control the whole way through.</p></div></div>
       </div>
       <div class="faq-row">
         <button class="faq-q" type="button" aria-expanded="false">
-          <span>Is my information safe?</span>
+          <span data-cms="faq.list.3.question">Is my information safe?</span>
           <svg class="faq-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner"><p>Yes. Your details are only used to give you a call about your insurance, and they're kept private and secure. We never sell your information.</p></div></div>
+        <div class="faq-a"><div class="faq-a-inner"><p data-cms="faq.list.3.answer">Yes. Your details are only used to give you a call about your insurance, and they're kept private and secure. We never sell your information.</p></div></div>
       </div>
     </div>
   </div>
@@ -591,7 +591,7 @@
       <div>
         <div class="brand">
           <span class="mark mark-footer"><img src="assets/kiwi-head.png" alt="KiwiQuote kiwi" /></span>KiwiQuote</div>
-        <p style="margin-top:14px; max-width:32ch; color:#b3a890; font-size:0.95rem;">Helping everyday Kiwis check they're getting a fair deal on their insurance.</p>
+        <p style="margin-top:14px; max-width:32ch; color:#b3a890; font-size:0.95rem;" data-cms="footer.blurb">Helping everyday Kiwis check they're getting a fair deal on their insurance.</p>
       </div>
       <div class="foot-cols">
         <div>
@@ -601,13 +601,13 @@
         </div>
         <div>
           <h4>Get in touch</h4>
-          <a href="mailto:admin@kiwiquote.co.nz">admin@kiwiquote.co.nz</a>
-          <a href="tel:0800000000">0800 000 000</a>
+          <a href="mailto:admin@kiwiquote.co.nz" data-cms-mailto="business.email" data-cms="business.email">admin@kiwiquote.co.nz</a>
+          <a href="tel:0800000000" data-cms-tel="business.phone.tel" data-cms="business.phone.display">0800 000 000</a>
         </div>
       </div>
     </div>
     <p class="legal">
-      KiwiQuote helps connect you with licensed financial advisers. We don't provide financial advice through this website or our intro call. Any advice is provided by a licensed financial adviser, and a copy of their disclosure information is available on request.
+      <span data-cms="footer.legal">KiwiQuote helps connect you with licensed financial advisers. We don't provide financial advice through this website or our intro call. Any advice is provided by a licensed financial adviser, and a copy of their disclosure information is available on request.</span>
       <br/><br/>
       &copy; <span id="year"></span> KiwiQuote. All rights reserved.
     </p>
@@ -616,6 +616,99 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- CMS content loader ----
+  // Pulls editable copy from content/content.json so the dashboard CMS is the
+  // source of truth. The hardcoded HTML acts as a fallback if the file is missing.
+  (function () {
+    function get(obj, path) {
+      return path.split('.').reduce(function (acc, key) {
+        return (acc == null) ? undefined : acc[key];
+      }, obj);
+    }
+
+    fetch('content/content.json', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+      .then(function (data) {
+        // Plain text bindings
+        document.querySelectorAll('[data-cms]').forEach(function (el) {
+          var v = get(data, el.getAttribute('data-cms'));
+          if (typeof v === 'string' && v.length) { el.textContent = v; }
+        });
+        // Attribute bindings
+        document.querySelectorAll('[data-cms-href]').forEach(function (el) {
+          var v = get(data, el.getAttribute('data-cms-href'));
+          if (typeof v === 'string' && v.length) { el.setAttribute('href', v); }
+        });
+        document.querySelectorAll('[data-cms-mailto]').forEach(function (el) {
+          var v = get(data, el.getAttribute('data-cms-mailto'));
+          if (typeof v === 'string' && v.length) { el.setAttribute('href', 'mailto:' + v); }
+        });
+        document.querySelectorAll('[data-cms-tel]').forEach(function (el) {
+          var v = get(data, el.getAttribute('data-cms-tel'));
+          if (typeof v === 'string' && v.length) { el.setAttribute('href', 'tel:' + v.replace(/\s+/g, '')); }
+        });
+        document.querySelectorAll('[data-cms-content]').forEach(function (el) {
+          var v = get(data, el.getAttribute('data-cms-content'));
+          if (typeof v === 'string' && v.length) { el.setAttribute('content', v); }
+        });
+
+        // Title + business name
+        var name = get(data, 'business.name') || 'KiwiQuote';
+        var seoTitle = get(data, 'seo.title');
+        if (seoTitle) { document.title = name + ' — ' + seoTitle; }
+
+        // Hero headline with highlighted phrase
+        var hl = document.getElementById('heroHeadline');
+        var headline = get(data, 'hero.headline');
+        var highlight = get(data, 'hero.highlight');
+        if (hl && headline) {
+          if (highlight && headline.indexOf(highlight) !== -1) {
+            var parts = headline.split(highlight);
+            hl.innerHTML = esc(parts[0]) + '<span class="hl">' + esc(highlight) + '</span>' + esc(parts.slice(1).join(highlight));
+          } else {
+            hl.textContent = headline;
+          }
+        }
+
+        // Benefit lists (comma-separated string -> bullet items)
+        document.querySelectorAll('[data-cms-benefits]').forEach(function (ul) {
+          var v = get(data, ul.getAttribute('data-cms-benefits'));
+          if (typeof v !== 'string' || !v.length) { return; }
+          ul.innerHTML = v.split(',').map(function (item) {
+            return '<li><span class="bdot"></span> ' + esc(item.trim()) + '</li>';
+          }).join('');
+        });
+
+        // Survey question prompts, helper text, and options
+        var qMap = { interest: 0, hasInsurance: 1, age: 2, callTime: 3 };
+        Object.keys(qMap).forEach(function (nameKey) {
+          var step = document.querySelector('.survey-step[data-name="' + nameKey + '"]');
+          var q = get(data, 'check.questions.' + qMap[nameKey]);
+          if (!step || !q) { return; }
+          if (q.prompt) { var h = step.querySelector('.survey-q'); if (h) h.textContent = q.prompt; }
+          if (q.help) { var p = step.querySelector('.survey-help'); if (p) p.textContent = q.help; }
+          if (typeof q.options === 'string' && q.options.length) {
+            var opts = q.options.split(',').map(function (o) { return o.trim(); });
+            var choices = step.querySelectorAll('.choice');
+            opts.forEach(function (opt, i) {
+              if (!choices[i]) { return; }
+              var input = choices[i].querySelector('input');
+              var label = choices[i].querySelector('label');
+              if (input) { input.value = opt; }
+              if (label) { label.textContent = opt; }
+            });
+          }
+        });
+      })
+      .catch(function () { /* keep hardcoded fallback content */ });
+
+    function esc(s) {
+      return String(s).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+  })();
 
   // ---- FAQ accordion (single open at a time) ----
   document.querySelectorAll('#faq .faq-q').forEach(function (btn) {
