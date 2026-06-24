@@ -19,7 +19,6 @@ var COLUMNS = [
   'Timestamp',
   'Name',
   'Phone',
-  'Phone verified',
   'Email',
   'Interested in',
   'Currently insured',
@@ -50,7 +49,6 @@ function doPost(e) {
       now,
       p.name || '',
       p.phone || '',
-      p.phoneVerified === 'yes' ? 'Yes' : 'No',
       p.email || '',
       p.interest || '',
       p.hasInsurance || '',
@@ -63,7 +61,7 @@ function doPost(e) {
     var body =
       'New KiwiQuote lead\n\n' +
       'Name: ' + (p.name || '') + '\n' +
-      'Phone: ' + (p.phone || '') + (p.phoneVerified === 'yes' ? ' (verified)' : '') + '\n' +
+      'Phone: ' + (p.phone || '') + '\n' +
       'Email: ' + (p.email || '') + '\n' +
       'Interested in: ' + (p.interest || '') + '\n' +
       'Currently insured: ' + (p.hasInsurance || '') + '\n' +

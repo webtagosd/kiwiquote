@@ -228,23 +228,6 @@
   .choice input:checked + label { background: var(--mint); border-color: var(--mint-deep); color: var(--mint-dark); }
 
   /* phone verify */
-  .verify-row { display: flex; gap: 10px; align-items: stretch; }
-  .verify-row input { flex: 1; }
-  .btn-verify {
-    white-space: nowrap; border: 1.5px solid var(--mint-deep); background: var(--mint);
-    color: var(--mint-dark); font-weight: 700; border-radius: 14px; padding: 0 18px; cursor: pointer;
-    font-family: inherit; font-size: 0.92rem; transition: all .15s ease;
-  }
-  .btn-verify:hover { background: var(--mint-deep); color: #fff; }
-  .btn-verify:disabled { opacity: 0.5; cursor: default; }
-  .verify-box { margin-top: 12px; padding: 16px; border-radius: 14px; background: var(--cream); border: 1px dashed var(--coral); display: none; }
-  .verify-box.show { display: block; }
-  .verify-box p { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 10px; }
-  .verify-box .code-row { display: flex; gap: 10px; }
-  .verify-box input { letter-spacing: 0.4em; font-weight: 700; text-align: center; }
-  .verified-tag { display: none; align-items: center; gap: 8px; color: var(--mint-dark); font-weight: 700; font-size: 0.92rem; margin-top: 10px; }
-  .verified-tag.show { display: inline-flex; }
-  .demo-tag { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8a5f37; background: var(--coral-soft); padding: 3px 9px; border-radius: 999px; }
 
   .submit-row { margin-top: 8px; }
   .submit-row .btn-primary { width: 100%; justify-content: center; font-size: 1.08rem; }
@@ -460,19 +443,8 @@
           </div>
 
           <div class="field">
-            <label for="phone">Phone number <span class="req">*</span> <span class="demo-tag">verify demo</span></label>
-            <div class="verify-row">
-              <input type="tel" id="phone" name="phone" placeholder="021 234 5678" required />
-              <button type="button" class="btn-verify" id="sendCode">Send code</button>
-            </div>
-            <div class="verify-box" id="verifyBox">
-              <p>We sent a 4-digit code to your phone. Pop it in below to confirm your number. <em>(This is a demo, so the code is <strong>1234</strong>.)</em></p>
-              <div class="code-row">
-                <input type="text" id="code" inputmode="numeric" maxlength="4" placeholder="1234" />
-                <button type="button" class="btn-verify" id="checkCode">Confirm</button>
-              </div>
-            </div>
-            <span class="verified-tag" id="verifiedTag"><span class="tick">&check;</span> Number confirmed, nice one!</span>
+            <label for="phone">Phone number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="021 234 5678" required />
           </div>
 
           <div class="field">
@@ -661,40 +633,6 @@
     });
   });
 
-  // ---- Phone verification (front-end demo) ----
-  var phoneVerified = false;
-  var sendBtn = document.getElementById('sendCode');
-  var verifyBox = document.getElementById('verifyBox');
-  var checkBtn = document.getElementById('checkCode');
-  var codeInput = document.getElementById('code');
-  var verifiedTag = document.getElementById('verifiedTag');
-  var phoneInput = document.getElementById('phone');
-
-  sendBtn.addEventListener('click', function () {
-    if (!phoneInput.value.trim()) {
-      phoneInput.focus();
-      phoneInput.style.borderColor = '#b4532e';
-      return;
-    }
-    verifyBox.classList.add('show');
-    sendBtn.textContent = 'Resend';
-    codeInput.focus();
-  });
-
-  checkBtn.addEventListener('click', function () {
-    if (codeInput.value.trim() === '1234') {
-      phoneVerified = true;
-      verifyBox.classList.remove('show');
-      verifiedTag.classList.add('show');
-      sendBtn.disabled = true;
-      sendBtn.textContent = 'Confirmed';
-    } else {
-      codeInput.style.borderColor = '#b4532e';
-      codeInput.value = '';
-      codeInput.placeholder = 'Try again';
-    }
-  });
-
   // ---- Submit ----
   // Paste the deployed Google Apps Script Web App URL between the quotes below.
   // (See google-apps-script/README.md for the 5-minute setup. Until it's filled
@@ -733,7 +671,6 @@
     var data = {
       name: document.getElementById('name').value.trim(),
       phone: document.getElementById('phone').value.trim(),
-      phoneVerified: phoneVerified ? 'yes' : 'no',
       email: document.getElementById('email').value.trim(),
       interest: pick('interest'),
       hasInsurance: pick('hasInsurance'),
