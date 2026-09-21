@@ -41,7 +41,7 @@ for (const el of document.querySelectorAll("[data-wt]")) {
 
 // Build-only bindings the canvas can't live-edit (they need markup around the value).
 const name = get("business.name");
-document.title = `${name} — ${get("seo.title")}`;
+document.title = `${name}, ${get("seo.title")}`;
 document.querySelector('meta[name="description"]').setAttribute("content", get("seo.description"));
 
 const headline = get("hero.headline");
