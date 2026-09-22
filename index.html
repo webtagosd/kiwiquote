@@ -632,10 +632,7 @@
   });
 
   // ---- Submit ----
-  // Paste the deployed Google Apps Script Web App URL between the quotes below.
-  // (See google-apps-script/README.md for the 5-minute setup. Until it's filled
-  //  in, the form still works for the visitor; it just won't deliver the lead.)
-  var LEAD_ENDPOINT = "";
+  var LEAD_ENDPOINT = "https://webtag-live.vercel.app/api/forms/submit"; // WebTag dashboard intake
 
   var form = document.getElementById('leadForm');
   var thanks = document.getElementById('thanks');
@@ -684,17 +681,20 @@
       thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
-    // Send the lead to the Google Apps Script Web App (emails admin@ + appends to the sheet).
-    if (LEAD_ENDPOINT) {
-      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending...'; }
-      fetch(LEAD_ENDPOINT, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: new URLSearchParams(data)
-      }).then(showThanks).catch(showThanks);
-    } else {
+    // Send the lead to the WebTag dashboard.
+    var idleLabel = submitBtn ? submitBtn.textContent : '';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending...'; }
+    fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ site_id: '1186e02b-cd2e-45e8-b214-d37510d79379', form_name: 'quote check', data: data, source_url: location.href })
+    }).then(function (r) {
+      if (!r.ok) throw new Error();
       showThanks();
-    }
+    }).catch(function () {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = idleLabel; }
+      alert('Sorry, that did not send. Please try again, or email us at admin@kiwiquote.co.nz.');
+    });
   });
 
   // ---- Survey step navigation ----
