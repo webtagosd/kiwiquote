@@ -80,9 +80,49 @@ bridge.setAttribute("src", "/editor-bridge.js");
 bridge.setAttribute("defer", "");
 document.head.appendChild(bridge);
 
+// --- Search engines ---------------------------------------------------------
+// One page, reachable as both / and /index.html, so the canonical points both
+// at /. Structured data carries only what content.json actually holds: the
+// phone number is still the 0800 000 000 placeholder, so it stays out.
+const SITE_URL = "https://kiwiquote.webtag.co.nz";
+const ogImage = get("business.logo_image_url");
+const head = (html) => document.head.insertAdjacentHTML("beforeend", html);
+head(`<link rel="canonical" href="${SITE_URL}/" />`);
+head(`<link rel="icon" href="/assets/kiwi-head.png" />`);
+head(`<meta property="og:type" content="website" />`);
+head(`<meta property="og:site_name" content="${esc(get("business.name"))}" />`);
+head(`<meta property="og:title" content="${esc(document.title)}" />`);
+head(`<meta property="og:description" content="${esc(get("seo.description"))}" />`);
+head(`<meta property="og:url" content="${SITE_URL}/" />`);
+head(`<meta property="og:image" content="${esc(ogImage)}" />`);
+head(`<meta name="twitter:card" content="summary_large_image" />`);
+head(`<meta name="twitter:image" content="${esc(ogImage)}" />`);
+head(
+  `<script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "InsuranceAgency",
+    name: get("business.name"),
+    description: get("seo.description"),
+    slogan: get("business.tagline"),
+    url: SITE_URL,
+    email: get("business.email"),
+    image: ogImage,
+    logo: ogImage,
+    areaServed: get("business.locationLabel"),
+  })}</script>`,
+);
+
 rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist);
 cpSync(new URL("assets/", root), new URL("assets/", dist), { recursive: true });
 cpSync(new URL("editor-bridge.js", root), new URL("editor-bridge.js", dist));
 writeFileSync(new URL("index.html", dist), document.toString());
-console.log("built dist/index.html");
+// One `User-agent: *` Allow covers GPTBot, ClaudeBot, PerplexityBot and the
+// rest. Do not add per-bot Disallow lines: blocking them is how a site
+// disappears from AI answers.
+writeFileSync(new URL("robots.txt", dist), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+writeFileSync(
+  new URL("sitemap.xml", dist),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${SITE_URL}/</loc></url>\n</urlset>\n`,
+);
+console.log("built dist/index.html, robots.txt, sitemap.xml");
