@@ -327,6 +327,8 @@
     .note-kiwi { width: 84px; }
   }
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>/* Turnstile stays out of the layout unless a visitor has to interact */ .cf-turnstile, .cf-turnstile > div, .cf-turnstile > div > div { display: contents; }</style>
 </head>
 <body>
 
@@ -458,6 +460,7 @@
           </div>
         </div>
 
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADueXkvPFQRzJgxw" data-appearance="interaction-only" data-size="flexible" data-refresh-expired="auto"></div>
         <div class="survey-nav">
           <button type="button" class="btn-back" id="backBtn">&larr; Back</button>
           <div class="survey-nav-right">
@@ -638,6 +641,19 @@
   var thanks = document.getElementById('thanks');
   var submitBtn = form.querySelector('button[type="submit"]');
 
+  // Cloudflare Turnstile: a token lasts 300s and works once, so it is read at send time and
+  // renewed if missing or stale. Never blocks: no token within ~5s and the enquiry goes without.
+  function turnstileToken() {
+    var ts = window.turnstile, w = form.querySelector('.cf-turnstile');
+    var get = function () { try { return ts.getResponse(w) || ''; } catch (_) { return ''; } };
+    return new Promise(function (res) {
+      if (!ts || !w) return res('');
+      try { if (!get() || ts.isExpired(w)) ts.reset(w); } catch (_) {}
+      var n = 0; (function poll() { var t = get(); if (t || ++n > 25) return res(t); setTimeout(poll, 200); })();
+    });
+  }
+  // After every send, so a second enquiry gets a fresh token.
+  function resetTurnstile() { try { window.turnstile.reset(form.querySelector('.cf-turnstile')); } catch (_) {} }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     // simple required check
@@ -684,17 +700,17 @@
     // Send the lead to the WebTag dashboard.
     var idleLabel = submitBtn ? submitBtn.textContent : '';
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending...'; }
-    fetch(LEAD_ENDPOINT, {
+    turnstileToken().then(function (turnstile) { return fetch(LEAD_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ site_id: '1186e02b-cd2e-45e8-b214-d37510d79379', form_name: 'quote check', data: data, source_url: location.href })
-    }).then(function (r) {
+      body: JSON.stringify({ site_id: '1186e02b-cd2e-45e8-b214-d37510d79379', form_name: 'quote check', data: data, source_url: location.href, turnstile_token: turnstile || undefined })
+    }); }).then(function (r) {
       if (!r.ok) throw new Error();
       showThanks();
     }).catch(function () {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = idleLabel; }
       alert('Sorry, that did not send. Please try again, or email us at admin@kiwiquote.co.nz.');
-    });
+    }).then(resetTurnstile);
   });
 
   // ---- Survey step navigation ----
