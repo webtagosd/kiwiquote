@@ -85,9 +85,14 @@ document.head.appendChild(bridge);
 // at /. Structured data carries only what content.json actually holds: the
 // phone number is still the 0800 000 000 placeholder, so it stays out.
 const SITE_URL = "https://kiwiquote.webtag.co.nz";
+// Demos are noindex: they carry placeholder copy and unverified reviews under a
+// real business's name. Flip to true at go-live — robots.txt and the meta robots
+// tag both read this one value.
+const INDEXABLE = false;
 const ogImage = get("business.logo_image_url");
 const head = (html) => document.head.insertAdjacentHTML("beforeend", html);
 head(`<link rel="canonical" href="${SITE_URL}/" />`);
+if (!INDEXABLE) head(`<meta name="robots" content="noindex,nofollow" />`);
 head(`<link rel="icon" href="/assets/kiwi-head.png" />`);
 head(`<meta property="og:type" content="website" />`);
 head(`<meta property="og:site_name" content="${esc(get("business.name"))}" />`);
@@ -120,7 +125,12 @@ writeFileSync(new URL("index.html", dist), document.toString());
 // One `User-agent: *` Allow covers GPTBot, ClaudeBot, PerplexityBot and the
 // rest. Do not add per-bot Disallow lines: blocking them is how a site
 // disappears from AI answers.
-writeFileSync(new URL("robots.txt", dist), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+writeFileSync(
+  new URL("robots.txt", dist),
+  INDEXABLE
+    ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
+    : `User-agent: *\nDisallow: /\n`,
+);
 writeFileSync(
   new URL("sitemap.xml", dist),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>${SITE_URL}/</loc></url>\n</urlset>\n`,
