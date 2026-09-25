@@ -1,15 +1,17 @@
-// Compiled from webtag-standard-template/src/scripts/editor-bridge.ts, bridge version 2026-09-12i
+// Compiled from webtag-standard-template/src/scripts/editor-bridge.ts, canonical as of 2026-09-25 (esbuild --define:import.meta.env.DEV=false)
 // (types stripped with esbuild, logic unchanged). Re-run the esbuild step when the bridge changes.
 "use strict";
 const ALLOWED_ORIGINS = [
-  "https://webtag-live.vercel.app",
+  "https://os.webtag.co.nz",
   // production dashboard
-  "http://localhost:3020",
-  // local dashboard dev
-  "http://localhost:3000"
-  // local dashboard dev (alt port)
+  "https://webtag-live.vercel.app",
+  // production dashboard (Vercel domain)
+  "https://webtag-live-webtagosd.vercel.app",
+  // production dashboard (team alias)
+  // Local dashboard dev. import.meta.env.DEV is false in every production build, so these never ship.
+  ...false ? ["http://localhost:3020", "http://localhost:3000"] : []
 ];
-const PREVIEW_ORIGIN = /^https:\/\/webtag-live(-[a-z0-9-]+)?(-webtagosd)?\.vercel\.app$/;
+const PREVIEW_ORIGIN = /^https:\/\/webtag-live-(?:[a-z0-9]{9}|git-[a-z0-9-]+)-webtagosd\.vercel\.app$/;
 const isAllowedOrigin = (origin) => ALLOWED_ORIGINS.includes(origin) || PREVIEW_ORIGIN.test(origin);
 (function initEditorBridge() {
   let mode = null;
