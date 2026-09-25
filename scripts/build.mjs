@@ -121,6 +121,7 @@ rmSync(dist, { recursive: true, force: true });
 mkdirSync(dist);
 cpSync(new URL("assets/", root), new URL("assets/", dist), { recursive: true });
 cpSync(new URL("editor-bridge.js", root), new URL("editor-bridge.js", dist));
+cpSync(new URL("site.js", root), new URL("site.js", dist));
 cpSync(new URL("404.html", root), new URL("404.html", dist));
 writeFileSync(new URL("index.html", dist), document.toString());
 // One `User-agent: *` Allow covers GPTBot, ClaudeBot, PerplexityBot and the
