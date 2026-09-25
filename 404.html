@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Page not found | KiwiQuote</title>
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" href="assets/kiwi-head.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #493C31;
+    --ink-soft: #6b5d4f;
+    --text: #1C1C1C;
+    --paper: #FFFCF2;
+    --mint-deep: #8a5a32;
+    --mint-dark: #5e3c1e;
+    --line: #ece4d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    color: var(--text);
+    background: var(--paper);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { width: min(1080px, 92vw); margin: 0 auto; }
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 252, 242, 0.82);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.18rem; letter-spacing: -0.02em; text-decoration: none; color: inherit; }
+  .brand .mark { height: 42px; display: inline-flex; align-items: center; }
+  .brand .mark img { height: 100%; width: auto; display: block; }
+  .brand b { color: var(--mint-deep); }
+  main.notfound {
+    min-height: 60vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 90px 24px;
+  }
+  main.notfound .eyebrow { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.2rem; color: var(--mint-deep); }
+  main.notfound h1 { font-family: "Fraunces", serif; font-weight: 600; font-size: clamp(1.8rem, 4vw, 2.6rem); margin-top: 12px; color: var(--ink); }
+  main.notfound p { margin-top: 16px; max-width: 46ch; color: var(--ink-soft); font-size: 1.05rem; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+    border: none; font-family: inherit; font-weight: 700; font-size: 1.02rem;
+    padding: 16px 30px; border-radius: 999px; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #8a5a32, #5e3c1e); color: var(--paper);
+    box-shadow: 0 14px 30px -12px rgba(94, 60, 30, 0.6);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 38px -12px rgba(94, 60, 30, 0.72); }
+  .btn-ghost { background: #fff; border: 1px solid var(--line); color: var(--ink); font-weight: 600; padding: 15px 26px; }
+  .btn-ghost:hover { transform: translateY(-3px); }
+  .notfound-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; justify-content: center; }
+  footer { background: var(--ink); color: #e7e0d0; padding: 30px 0; text-align: center; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="KiwiQuote home">
+      <span class="mark"><img src="assets/kiwi-head.png" alt="KiwiQuote kiwi" /></span><span class="word">Kiwi<b>Quote</b></span></a>
+  </div>
+</header>
+
+<main class="notfound">
+  <p class="eyebrow">404</p>
+  <h1>That page doesn't exist</h1>
+  <p>The page you're looking for has moved or was never here. Head back to the homepage to start your free check.</p>
+  <div class="notfound-actions">
+    <a class="btn btn-primary" href="/">Back to home</a>
+    <a class="btn btn-ghost" href="/#quote">Start my free check</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">&copy; KiwiQuote. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
